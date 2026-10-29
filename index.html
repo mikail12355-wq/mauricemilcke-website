@@ -42,10 +42,15 @@
     padding: 20px clamp(16px, 4vw, 48px);
     mix-blend-mode: difference;
   }
-  nav .logo { font-family: "Anton", sans-serif; font-size: 22px; letter-spacing: .04em; }
+  nav .logo { font-family: "Anton", sans-serif; font-size: 22px; letter-spacing: .04em; text-transform: uppercase; color: inherit; text-decoration: none; cursor: pointer; }
+  nav .logo .short { display: none; }
   nav ul { display: flex; gap: 28px; list-style: none; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; }
   nav a { color: inherit; text-decoration: none; }
-  @media (max-width: 700px) { nav ul { display: none; } }
+  @media (max-width: 700px) {
+    nav ul { display: none; }
+    nav .logo .full { display: none; }
+    nav .logo .short { display: inline; }
+  }
 
   /* ---------- Hero (gepinnt) ---------- */
   .hero { position: relative; height: 100vh; overflow: hidden; }
@@ -198,7 +203,7 @@
 <div class="grain"></div>
 
 <nav>
-  <div class="logo">M. MILCKE</div>
+  <a class="logo" href="#top" aria-label="Nach oben"><span class="full">Maurice Milcke</span><span class="short">M. Milcke</span></a>
   <ul>
     <li><a href="#bilanz">Bilanz</a></li>
     <li><a href="#kaempfe">Kämpfe</a></li>
@@ -395,8 +400,13 @@ gsap.from('#vs .b', { xPercent: 60, opacity: 0, ease: 'none',
 gsap.from('#vs .red', { scale: 3, opacity: 0, ease: 'none',
   scrollTrigger: { trigger: '#next', start: 'top 80%', end: 'top 35%', scrub: true } });
 
+// Logo: ganz nach oben scrollen
+document.querySelector('nav .logo').addEventListener('click', e => {
+  e.preventDefault(); lenis.scrollTo(0, { duration: 1.6 });
+});
+
 // Anker-Links mit weichem Scrollen
-document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+document.querySelectorAll('a[href^="#"]:not(.logo)').forEach(a => a.addEventListener('click', e => {
   const t = a.getAttribute('href'); if (t.length > 1) { e.preventDefault(); lenis.scrollTo(t); }
 }));
 </script>
