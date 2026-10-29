@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maurice Milcke – The Eagle</title>
+<meta name="description" content="Maurice „The Eagle“ Milcke – ungeschlagener Profiboxer im Mittelgewicht aus Berlin. 12 Kämpfe, 12 Siege, 10 K.o.">
+<meta property="og:title" content="Maurice „The Eagle“ Milcke – Profiboxer">
+<meta property="og:description" content="12 Kämpfe. 12 Siege. 10 K.o. Ungeschlagen im Mittelgewicht.">
+<meta property="og:image" content="https://mauricemilcke.de/assets/og.jpg">
+<meta property="og:url" content="https://mauricemilcke.de/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://mauricemilcke.de/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/boxer.webp" as="image">
+<style>
+  @font-face { font-family: "Anton"; font-weight: 400; font-display: swap; src: url("assets/fonts/anton-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 400; font-display: swap; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 500; font-display: swap; src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 700; font-display: swap; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+
+  :root {
+    --bg: #050505;
+    --text: #f2efe9;
+    --muted: #8d8a85;
+    --red: #d1142f;
+    --red-dark: #5a0812;
+    --line: rgba(255,255,255,.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); }
+  body { font-family: "Inter", system-ui, sans-serif; overflow-x: hidden; }
+  .display { font-family: "Anton", Impact, sans-serif; text-transform: uppercase; letter-spacing: .01em; line-height: .9; }
+
+  /* ---------- Navigation ---------- */
+  nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px clamp(16px, 4vw, 48px);
+    mix-blend-mode: difference;
+  }
+  nav .logo { font-family: "Anton", sans-serif; font-size: 22px; letter-spacing: .04em; }
+  nav ul { display: flex; gap: 28px; list-style: none; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; }
+  nav a { color: inherit; text-decoration: none; }
+  @media (max-width: 700px) { nav ul { display: none; } }
+
+  /* ---------- Hero (gepinnt) ---------- */
+  .hero { position: relative; height: 100vh; overflow: hidden; }
+  .stage { position: absolute; inset: 0; display: grid; place-items: center; }
+
+  .bg-name {
+    position: absolute; left: 50%; top: 46%;
+    font-size: clamp(90px, 22vw, 360px); white-space: nowrap; text-align: center;
+    color: var(--red-dark); z-index: 1; pointer-events: none;
+  }
+  .bg-name span { display: block; }
+
+  .figure {
+    position: relative; z-index: 2;
+    height: min(94vh, 126vw); aspect-ratio: 1145 / 1425;
+    transform-origin: 50% 24%;
+    will-change: transform;
+  }
+  .figure img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    /* Schwarzer Hintergrund des Fotos wird "durchsichtig" → Name scheint dahinter */
+    mix-blend-mode: lighten;
+    /* Ränder weich ausblenden: seitlich oval, unten zusätzlich nach Schwarz */
+    -webkit-mask-image: radial-gradient(ellipse 62% 72% at 50% 42%, #000 62%, transparent 100%), linear-gradient(to bottom, #000 78%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-image: radial-gradient(ellipse 62% 72% at 50% 42%, #000 62%, transparent 100%), linear-gradient(to bottom, #000 78%, transparent 100%);
+            mask-composite: intersect;
+    filter: brightness(.15) contrast(1.1);
+    will-change: filter;
+  }
+
+  .spot {
+    position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: radial-gradient(circle at 50% 35%, transparent 0, transparent 22%, rgba(0,0,0,.85) 60%);
+  }
+  .grain {
+    position: fixed; inset: -50%; z-index: 60; pointer-events: none; opacity: .06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1s steps(4) infinite;
+  }
+  @keyframes grain { 0%{transform:translate(0,0)} 25%{transform:translate(-3%,2%)} 50%{transform:translate(2%,-3%)} 75%{transform:translate(-2%,-1%)} }
+
+  .intro {
+    position: absolute; z-index: 5; bottom: 9vh; left: 50%;
+    text-align: center;
+  }
+  .intro .kicker { font-size: 12px; letter-spacing: .4em; text-transform: uppercase; color: var(--muted); }
+  .intro .scroll-hint { margin-top: 18px; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+  .intro .scroll-hint::after {
+    content: ""; display: block; width: 1px; height: 46px; margin: 12px auto 0;
+    background: linear-gradient(var(--text), transparent);
+    animation: drip 1.8s ease-in-out infinite;
+  }
+  @keyframes drip { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+  /* Statistiken im Hero */
+  .stat {
+    position: absolute; z-index: 6; opacity: 0;
+    padding-left: 16px; border-left: 2px solid var(--red);
+  }
+  .stat .num { font-family: "Anton", sans-serif; font-size: clamp(44px, 6vw, 92px); line-height: 1; }
+  .stat .lbl { margin-top: 6px; font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
+  .stat.l1 { left: 7vw;  top: max(22vh, 90px); }
+  .stat.l2 { left: 7vw;  top: 58vh; }
+  .stat.r1 { right: 7vw; top: max(30vh, 110px); text-align: right; border-left: 0; border-right: 2px solid var(--red); padding: 0 16px 0 0; }
+  .stat.r2 { right: 7vw; top: 64vh; text-align: right; border-left: 0; border-right: 2px solid var(--red); padding: 0 16px 0 0; }
+
+  .quote {
+    position: absolute; z-index: 7; left: 50%; bottom: 10vh;
+    font-size: clamp(40px, 8vw, 120px); white-space: nowrap; opacity: 0;
+    text-shadow: 0 4px 40px rgba(0,0,0,.8);
+  }
+  .quote em { font-style: normal; color: var(--red); }
+
+  @media (max-width: 700px) {
+    .stat .num { font-size: 40px; }
+    .stat .lbl { font-size: 10px; letter-spacing: .18em; }
+    .stat.l1 { left: 16px; top: max(14vh, 80px); }
+    .stat.r1 { right: 16px; top: max(14vh, 80px); }
+    .stat.l2 { left: 16px; top: auto; bottom: 12vh; }
+    .stat.r2 { right: 16px; top: auto; bottom: 12vh; }
+    .quote { white-space: normal; width: calc(100% - 32px); text-align: center; }
+  }
+
+  /* ---------- Inhalt ---------- */
+  section.block { padding: clamp(90px, 14vh, 160px) clamp(16px, 6vw, 96px); position: relative; }
+  .eyebrow { font-size: 12px; letter-spacing: .4em; text-transform: uppercase; color: var(--red); margin-bottom: 18px; }
+  h2.display { font-size: clamp(56px, 10vw, 160px); }
+
+  /* Bilanz */
+  .record { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); margin-top: 60px; }
+  .record > div { padding: 40px 0 0; border-right: 1px solid var(--line); text-align: center; }
+  .record > div:last-child { border-right: 0; }
+  .record .big { font-family: "Anton", sans-serif; font-size: clamp(80px, 16vw, 240px); line-height: .95; }
+  .record .big.red { color: var(--red); }
+  .record .cap { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+
+  .tale { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); margin-top: 80px; border: 1px solid var(--line); }
+  .tale > div { background: var(--bg); padding: 28px 24px; }
+  .tale .k { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+  .tale .v { font-family: "Anton", sans-serif; font-size: 36px; margin-top: 10px; }
+  @media (max-width: 800px) { .tale { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Laufband */
+  .marquee { overflow: hidden; border-block: 1px solid var(--line); padding: 22px 0; white-space: nowrap; }
+  .marquee .track { display: inline-block; font-size: clamp(40px, 7vw, 100px); }
+  .marquee .track span { margin: 0 .35em; }
+  .marquee .track .o { -webkit-text-stroke: 1px var(--text); color: transparent; }
+
+  /* Kampfhistorie */
+  .fights { margin-top: 60px; border-top: 1px solid var(--line); }
+  .fight {
+    display: grid; grid-template-columns: 90px 1fr auto auto; gap: 24px; align-items: center;
+    padding: 26px 0; border-bottom: 1px solid var(--line);
+  }
+  .fight .res { font-family: "Anton", sans-serif; font-size: 34px; }
+  .fight .res.w { color: var(--red); }
+  .fight .opp { font-family: "Anton", sans-serif; font-size: clamp(22px, 3vw, 40px); text-transform: uppercase; }
+  .fight .meta { color: var(--muted); font-size: 14px; }
+  .fight .opp small { display: block; font-family: "Inter", sans-serif; font-size: 12px; letter-spacing: .15em; color: var(--muted); margin-top: 6px; }
+  .fight .how.title { border-color: var(--red); color: var(--text); }
+  .next .when.later { margin-top: 10px; font-size: 11px; opacity: .7; }
+  .fight .how { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; border: 1px solid var(--line); padding: 8px 12px; }
+  @media (max-width: 700px) {
+    .fight { grid-template-columns: 56px 1fr; gap: 6px 14px; }
+    .fight .meta, .fight .how { grid-column: 2; justify-self: start; }
+  }
+
+  /* Nächster Kampf */
+  .next { text-align: center; overflow: hidden; }
+  .next .vs { font-size: clamp(70px, 15vw, 240px); }
+  .next .vs .red { color: var(--red); }
+  .next .when { margin-top: 24px; color: var(--muted); letter-spacing: .3em; text-transform: uppercase; font-size: 13px; }
+  .btn {
+    display: inline-block; margin-top: 44px; padding: 18px 36px; background: var(--red); color: #fff;
+    text-decoration: none; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 13px;
+  }
+
+  footer { padding: 40px clamp(16px, 6vw, 96px); border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: 13px; }
+  footer a { color: var(--text); text-decoration: none; margin-left: 20px; }
+
+  .reveal { opacity: 0; transform: translateY(60px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grain, .intro .scroll-hint::after { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav>
+  <div class="logo">M. MILCKE</div>
+  <ul>
+    <li><a href="#bilanz">Bilanz</a></li>
+    <li><a href="#kaempfe">Kämpfe</a></li>
+    <li><a href="#next">Nächster Kampf</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="stage">
+    <div class="bg-name display"><span>Maurice</span><span>Milcke</span></div>
+
+    <div class="figure" id="figure">
+      <img src="assets/boxer.webp" alt="Maurice Milcke in Kampfhaltung" id="boxer">
+    </div>
+
+    <div class="spot" id="spot"></div>
+
+    <div class="intro" id="intro">
+      <div class="kicker">„The Eagle“ · Profiboxer · Mittelgewicht</div>
+      <div class="scroll-hint">Scrollen</div>
+    </div>
+
+    <div class="stat l1"><div class="num" data-count="12">0</div><div class="lbl">Siege</div></div>
+    <div class="stat r1"><div class="num" data-count="10">0</div><div class="lbl">K.o.-Siege</div></div>
+    <div class="stat l2"><div class="num" data-count="83" data-suffix="%">0</div><div class="lbl">K.o.-Quote</div></div>
+    <div class="stat r2"><div class="num" data-count="0">0</div><div class="lbl">Niederlagen</div></div>
+
+    <div class="quote display" id="quote">Kein Schritt <em>zurück.</em></div>
+  </div>
+</section>
+
+<!-- ============ BILANZ ============ -->
+<section class="block" id="bilanz">
+  <div class="eyebrow reveal">Kampfbilanz</div>
+  <h2 class="display reveal">Ungeschlagen.</h2>
+
+  <div class="record reveal">
+    <div><div class="big red" data-count="12">0</div><div class="cap">Siege</div></div>
+    <div><div class="big" data-count="0">0</div><div class="cap">Niederlagen</div></div>
+    <div><div class="big" data-count="0">0</div><div class="cap">Unentschieden</div></div>
+  </div>
+
+  <div class="tale reveal">
+    <div><div class="k">Gewichtsklasse</div><div class="v">Mittel</div></div>
+    <div><div class="k">Auslage</div><div class="v">Orthodox</div></div>
+    <div><div class="k">Alter</div><div class="v">23</div></div>
+    <div><div class="k">Heimat</div><div class="v">Berlin-Köpenick</div></div>
+    <div><div class="k">Profi seit</div><div class="v">2022</div></div>
+    <div><div class="k">Runden</div><div class="v">30</div></div>
+    <div><div class="k">Rang Deutschland</div><div class="v">#7 / 64</div></div>
+    <div><div class="k">Rang Welt</div><div class="v">#131 / 2.111</div></div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="track display" id="marquee">
+    <span>Disziplin</span><span class="o">Härte</span><span>Wille</span><span class="o">Respekt</span>
+    <span>Disziplin</span><span class="o">Härte</span><span>Wille</span><span class="o">Respekt</span>
+    <span>Disziplin</span><span class="o">Härte</span><span>Wille</span><span class="o">Respekt</span>
+  </div>
+</div>
+
+<!-- ============ KÄMPFE ============ -->
+<section class="block" id="kaempfe">
+  <div class="eyebrow reveal">Kampfhistorie</div>
+  <h2 class="display reveal">12 Kämpfe. 12 Siege.</h2>
+
+  <div class="fights">
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Darren Hamilton<small>16-4-0</small></div><div class="meta">Mai 2026 · Columbia Halle, Berlin</div><div class="how title">🏆 GBC World Titel</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Zapir Rasulov<small>36-1-0</small></div><div class="meta">Feb 2026 · Stadtgarten Arena, Saarlouis</div><div class="how title">🏆 GBC Intercontinental</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">George Watson<small>8-14-2</small></div><div class="meta">Nov 2025 · Stadthalle, Velten</div><div class="how">Sieg</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Pavel Herman<small>2-45-1</small></div><div class="meta">Jul 2025 · Niedergörsdorf</div><div class="how">Sieg</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Jack Castle<small>6-2-0</small></div><div class="meta">Mär 2025 · Columbia Club, Berlin</div><div class="how title">🏆 GBC World Youth</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Mazen Girke<small>15-161-7</small></div><div class="meta">Sep 2024 · Jo Deckarm Halle, Saarbrücken</div><div class="how">Sieg</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Bakhtiyar Isgandarzada<small>12-30-0</small></div><div class="meta">Mai 2024 · Columbia Club, Berlin</div><div class="how title">🏆 GBA International</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">William Knight<small>0-1-0</small></div><div class="meta">Mär 2024 · Huxleys, Berlin</div><div class="how">Sieg</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Mazen Girke<small>15-147-6</small></div><div class="meta">Sep 2023 · Columbia Club, Berlin</div><div class="how">Sieg</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Michal Hadrbolec<small>0-4-0</small></div><div class="meta">Jun 2023 · Huxleys, Berlin</div><div class="how">Sieg</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Josef Holub<small>5-117-1</small></div><div class="meta">Mär 2023 · Columbia Club, Berlin</div><div class="how">Sieg</div></div>
+    <div class="fight reveal"><div class="res w">W</div><div class="opp">Petr Botos<small>Profidebüt</small></div><div class="meta">Mai 2022 · Columbia Club, Berlin</div><div class="how">Sieg</div></div>
+  </div>
+</section>
+
+<!-- ============ NÄCHSTER KAMPF ============ -->
+<section class="block next" id="next">
+  <div class="eyebrow reveal">Nächster Kampf</div>
+  <div class="vs display" id="vs"><span class="a">Milcke</span> <span class="red">vs</span> <span class="b">TBA</span></div>
+  <div class="when reveal">Sa · 14. November 2026 · Motor Sporthalle, Eberswalde</div>
+  <div class="when reveal later">Danach: Sa · 27. März 2027 · Riethsporthalle, Erfurt</div>
+  <a class="btn reveal" href="#">Tickets sichern</a>
+</section>
+
+<footer>
+  <div>© 2026 Maurice Milcke · Team Milcke</div>
+  <div><a href="#" target="_blank" rel="noopener">Instagram</a><a href="#" target="_blank" rel="noopener">TikTok</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+</footer>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/lenis.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// Weiches Scrollen
+const lenis = new Lenis({ lerp: 0.09 });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(t => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// Zahlen hochzählen
+function countUp(el, dur = 1.4) {
+  const end = +el.dataset.count, suffix = el.dataset.suffix || '';
+  const obj = { v: 0 };
+  gsap.to(obj, { v: end, duration: dur, ease: 'power2.out',
+    onUpdate: () => el.textContent = Math.round(obj.v) + suffix });
+}
+
+// ---------- HERO: Licht an → näher ran → Stats → Gesicht ----------
+const isMobile = window.matchMedia('(max-width: 700px)').matches;
+const counted = new Set();
+const statIn = (sel) => ({
+  opacity: 1, x: 0, duration: .6,
+  onStart: () => {
+    const n = document.querySelector(sel + ' .num');
+    if (!counted.has(n)) { counted.add(n); countUp(n); }
+  }
+});
+
+gsap.set('#figure', { scale: isMobile ? .85 : .62, y: '6vh' });
+gsap.set('.stat.l1, .stat.l2', { x: -40 });
+gsap.set('.stat.r1, .stat.r2', { x: 40 });
+gsap.set('#intro, #quote', { xPercent: -50 });
+gsap.set('.bg-name', { xPercent: -50, yPercent: -50, opacity: 0, scale: .9 });
+
+const tl = gsap.timeline({
+  defaults: { ease: 'none' },
+  scrollTrigger: { trigger: '#hero', start: 'top top', end: '+=450%', scrub: 1, pin: true }
+});
+
+tl
+  // 1) Licht geht an, Name erscheint dahinter
+  .to('#intro', { opacity: 0, y: 30, duration: .5 }, 0)
+  .to('#boxer', { filter: 'brightness(1) contrast(1.05)', duration: 1.4 }, 0)
+  .to('#spot', { opacity: .35, duration: 1.4 }, 0)
+  .to('.bg-name', { opacity: 1, scale: 1, duration: 1.4 }, .2)
+  .to('#figure', { scale: isMobile ? 1 : .82, y: 0, duration: 1.6 }, 0)
+
+  // 2) Statistiken nacheinander
+  .to('.stat.l1', statIn('.stat.l1'), 1.4)
+  .to('.stat.r1', statIn('.stat.r1'), 1.8)
+  .to('.stat.l2', statIn('.stat.l2'), 2.2)
+  .to('.stat.r2', statIn('.stat.r2'), 2.6)
+  .to('#figure', { scale: isMobile ? 1.1 : .95, duration: 1.8 }, 1.4)
+  .to('.bg-name', { yPercent: -8, duration: 1.8 }, 1.4)
+
+  // 3) Ganz nah ans Gesicht
+  .to('.stat', { opacity: 0, duration: .5 }, 3.6)
+  .to('.bg-name', { opacity: 0, scale: 1.3, duration: .8 }, 3.6)
+  .to('#figure', { scale: isMobile ? 2.4 : 2.6, y: '18vh', duration: 1.6, ease: 'power1.in' }, 3.6)
+  .to('#spot', { opacity: 1, duration: 1.6 }, 3.6)
+  .to('#quote', { opacity: 1, y: -20, duration: .7 }, 4.6)
+
+  // 4) Ausblenden
+  .to('#figure', { opacity: 0, duration: .8 }, 5.6)
+  .to('#quote', { opacity: 0, duration: .5 }, 5.8);
+
+// Nach dem Laden der Schrift Positionen neu berechnen
+document.fonts.ready.then(() => ScrollTrigger.refresh());
+
+// ---------- Inhalte einblenden ----------
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.to(el, {
+    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 88%' }
+  });
+});
+
+document.querySelectorAll('.record .big').forEach(el => {
+  ScrollTrigger.create({ trigger: el, start: 'top 85%', once: true, onEnter: () => countUp(el, 2) });
+});
+
+// Laufband bewegt sich mit dem Scrollen
+gsap.to('#marquee', {
+  xPercent: -30, ease: 'none',
+  scrollTrigger: { trigger: '.marquee', start: 'top bottom', end: 'bottom top', scrub: true }
+});
+
+// "Nachname vs Gegner" fährt von den Seiten rein
+gsap.from('#vs .a', { xPercent: -60, opacity: 0, ease: 'none',
+  scrollTrigger: { trigger: '#next', start: 'top 90%', end: 'top 30%', scrub: true } });
+gsap.from('#vs .b', { xPercent: 60, opacity: 0, ease: 'none',
+  scrollTrigger: { trigger: '#next', start: 'top 90%', end: 'top 30%', scrub: true } });
+gsap.from('#vs .red', { scale: 3, opacity: 0, ease: 'none',
+  scrollTrigger: { trigger: '#next', start: 'top 80%', end: 'top 35%', scrub: true } });
+
+// Anker-Links mit weichem Scrollen
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+  const t = a.getAttribute('href'); if (t.length > 1) { e.preventDefault(); lenis.scrollTo(t); }
+}));
+</script>
+</body>
+</html>
